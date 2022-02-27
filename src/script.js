@@ -26,6 +26,8 @@ const geometry = new THREE.SphereBufferGeometry(.5,64,64);
 const material = new THREE.MeshStandardMaterial() //MeshStandardMaterial convey the real world as much as possible
 material.metalness = 0.7
 material.roughness = 0.2
+material.normalMap = normalTexture;
+
 material.color = new THREE.Color(0x292929) //red 0xff0000
 
 // 3 Mesh the Obj and Material ,4 Add Mesh to Scene
@@ -39,6 +41,16 @@ pointLight.position.x = 2
 pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
+
+const pointLight2 = new THREE.PointLight(0xff0000, 2)
+// pointLight.position.x = 2
+// pointLight.position.y = 3
+// pointLight.position.z = 4
+pointLight2.position.set(1,1,1); // x,y,z
+pointLight2.intensity = 1;
+scene.add(pointLight2)
+
+gui.add(pointLight2.position, 'y');
 
 /**
  * Sizes
