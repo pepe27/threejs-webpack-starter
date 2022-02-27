@@ -3,7 +3,12 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
-// Debug
+// Loading
+const textureLoader = new THREE.TextureLoader();
+
+const normalTexture = textureLoader.load('/textures/NormalMap.png');
+
+// Debugger - shows up on screen
 const gui = new dat.GUI()
 
 // Canvas
@@ -12,15 +17,18 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-// Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+// 1 Objects
+// const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.SphereBufferGeometry(.5,64,64);
 
-// Materials
+// 2 Materials
 
-const material = new THREE.MeshBasicMaterial()
-material.color = new THREE.Color(0xff0000)
+const material = new THREE.MeshStandardMaterial() //MeshStandardMaterial convey the real world as much as possible
+material.metalness = 0.7
+material.roughness = 0.2
+material.color = new THREE.Color(0x292929) //red 0xff0000
 
-// Mesh
+// 3 Mesh the Obj and Material ,4 Add Mesh to Scene
 const sphere = new THREE.Mesh(geometry,material)
 scene.add(sphere)
 
@@ -40,6 +48,7 @@ const sizes = {
     height: window.innerHeight
 }
 
+//For Resizing the Screen
 window.addEventListener('resize', () =>
 {
     // Update sizes
@@ -73,7 +82,8 @@ scene.add(camera)
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    alpha:true //transparent background, for the rest of your website
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -90,7 +100,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = .5 * elapsedTime
+    sphere.rotation.y = .25 * elapsedTime //speed of rotation
 
     // Update Orbital Controls
     // controls.update()
@@ -99,7 +109,7 @@ const tick = () =>
     renderer.render(scene, camera)
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(tick)
+    window.requestAnimationFrame(tick) //Vanilla JS
 }
 
 tick()
