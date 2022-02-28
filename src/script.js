@@ -139,16 +139,40 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
+document.addEventListener('mousemove', onDocumentMouseMove)
+
+let mouseX = 0;
+let mouseY = 0;
+
+let targetX = 0;
+let targetY = 0;
+
+const windowX = window.innerWidth /2;
+const windowY = window.innerHeight /2;
+
+function onDocumentMouseMove(e) {
+    mouseX = (e.clientX - windowX)
+    mouseY = (e.clientY - windowY)
+}
+
+
 
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
+    targetX = mouseX * .001
+    targetY = mouseY * .001
 
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = .25 * elapsedTime //speed of rotation
+    sphere.rotation.y = .5 * elapsedTime //auto-rotation, without user mouse input
+
+    //allow user to effect x/y/z-rotation with mousemove, play around with number amounts
+    sphere.rotation.y += .5 * (targetX - sphere.rotation.y) 
+    sphere.rotation.x += .05 * (targetY - sphere.rotation.x) 
+    sphere.rotation.z += -.05 * (targetY - sphere.rotation.x) 
 
     // Update Orbital Controls
     // controls.update()

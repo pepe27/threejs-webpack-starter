@@ -15,8 +15,26 @@ body
 
 .webgl
 {
-    position: fixed;
+    position: absolute; 
+    /* was posiitoin fixed, before */
     top: 0;
     left: 0;
     outline: none;
+    /* cool blend effect */
+    mix-blend-mode: exclusion;
 }
+
+.container {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+h1 {
+    font-size: 8rem;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* allows for scrolling */
+section {height: 100vh;}
