@@ -155,6 +155,11 @@ function onDocumentMouseMove(e) {
     mouseY = (e.clientY - windowY)
 }
 
+//scrolling parallax effect
+const updateSphere = (e) => {
+    sphere.position.y = window.scrollY * 0.001;
+}
+window.addEventListener('scroll', updateSphere);
 
 
 const clock = new THREE.Clock()
@@ -169,10 +174,11 @@ const tick = () =>
     // Update objects
     sphere.rotation.y = .5 * elapsedTime //auto-rotation, without user mouse input
 
-    //allow user to effect x/y/z-rotation with mousemove, play around with number amounts
+    //allow user to effect x/y/rotation/z-position on x-axis with mousemove
+    //play around with number amounts
     sphere.rotation.y += .5 * (targetX - sphere.rotation.y) 
     sphere.rotation.x += .05 * (targetY - sphere.rotation.x) 
-    sphere.rotation.z += -.05 * (targetY - sphere.rotation.x) 
+    sphere.position.z += -.05 * (targetY - sphere.rotation.x) 
 
     // Update Orbital Controls
     // controls.update()

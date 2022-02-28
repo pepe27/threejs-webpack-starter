@@ -13,6 +13,11 @@ body
     background: rgb(24,24,24);
 }
 
+body {
+    /* no horizontal scrolling */
+    overflow-x: hidden;
+}
+
 .webgl
 {
     position: absolute; 
